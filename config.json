@@ -1,0 +1,7 @@
+{
+  "databaseName": "news",
+  "databasePassword": "password",
+  "databasePort": "3307",
+  "databaseServer": "localhost",
+  "databaseUser": "esqimo"
+}

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet title="XSL_formatting" type="text/xsl" href="/shared/bsp/xsl/rss/nolsol.xsl"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>
+            <![CDATA[BBC News - Technology]]>
+        </title>
+        <description>
+            <![CDATA[BBC News - Technology]]>
+        </description>
+        <link>https://www.bbc.co.uk/news/</link>
+        <image>
+            <url>https://news.bbcimg.co.uk/nol/shared/img/bbc_news_120x60.gif</url>
+            <title>BBC News - Technology</title>
+            <link>https://www.bbc.co.uk/news/</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Fri, 20 Sep 2019 23:54:41 GMT</lastBuildDate>
+        <copyright>
+            <![CDATA[Copyright: (C) British Broadcasting Corporation, see http://news.bbc.co.uk/2/hi/help/rss/4498287.stm for terms and conditions of reuse.]]>
+        </copyright>
+        <language>
+            <![CDATA[en-gb]]>
+        </language>
+        <ttl>15</ttl>
+        <item>
+            <title>
+                <![CDATA[What3words: 'Life-saving app' divides opinion]]>
+            </title>
+            <description>.Parse
+                <![CDATA[First responders have been singing the praises of what3words but some have reservations about the tech.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49754820</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49754820</guid>
+            <pubDate>Fri, 20 Sep 2019 23:53:41 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Facebook suspends tens of thousands of apps]]>
+            </title>
+            <description>
+                <![CDATA[The move comes as part of a review launched in the wake of the Cambridge Analytica scandal.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49776700</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49776700</guid>
+            <pubDate>Fri, 20 Sep 2019 20:34:25 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Microsoft president: Don't move fast and break things]]>
+            </title>
+            <description>
+                <![CDATA[Microsoft's president urges other tech firms to accept responsibility for the effects of their work.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49768347</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49768347</guid>
+            <pubDate>Fri, 20 Sep 2019 08:40:54 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[YouTube stars rattled by verification changes]]>
+            </title>
+            <description>
+                <![CDATA[YouTube will remove the "verified" status from many video-makers' channels.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49768349</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49768349</guid>
+            <pubDate>Fri, 20 Sep 2019 11:52:41 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Huawei Mate 30 phones launch without Google apps]]>
+            </title>
+            <description>
+                <![CDATA[Handsets will offer Facebook's apps via Huawei's own store but are not pre-loaded with Google's.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49754376</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49754376</guid>
+            <pubDate>Thu, 19 Sep 2019 14:03:05 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Tech entrepreneurs call for more government regulation]]>
+            </title>
+            <description>
+                <![CDATA[Tech insiders say we cannot trust companies like Google and Facebook to regulate themselves.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49719946</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49719946</guid>
+            <pubDate>Thu, 19 Sep 2019 23:15:40 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Hackers get chance to target US satellite]]>
+            </title>
+            <description>
+                <![CDATA[The US Air Force will allow selected hackers try and take over an orbiting satellite.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49768617</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49768617</guid>
+            <pubDate>Fri, 20 Sep 2019 11:18:25 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Amazon's Jeff Bezos promises climate-change action]]>
+            </title>
+            <description>
+                <![CDATA[The chief executive says Amazon will buy thousands of electric vehicles and become carbon neutral by 2040.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49757660</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49757660</guid>
+            <pubDate>Thu, 19 Sep 2019 16:16:35 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Fish waste-based alternative to plastic wins Dyson Award]]>
+            </title>
+            <description>
+                <![CDATA[MarinaTex is an alternative to the single-use plastics such as those used in sandwich packets.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49756240</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49756240</guid>
+            <pubDate>Thu, 19 Sep 2019 15:51:45 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Huawei: Microsoft president seeks end to US tech ban]]>
+            </title>
+            <description>
+                <![CDATA[The US company's president warns of a "digital iron curtain down the Pacific Ocean".]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49753460</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49753460</guid>
+            <pubDate>Thu, 19 Sep 2019 10:43:20 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Robotic fish to scare invasive species and other news]]>
+            </title>
+            <description>
+                <![CDATA[BBC Click's Lara Lewington looks at some of the week's best technology stories.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49552898</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49552898</guid>
+            <pubDate>Thu, 19 Sep 2019 23:11:52 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[The robot that cleans floors and tells jokes]]>
+            </title>
+            <description>
+                <![CDATA[More than 100 fully autonomous cleaning robots are coming to Singapore this year, made by local manufacturer Lionsbot. Ella's job is cleaning the floors at the National Gallery.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/business-49717668</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/business-49717668</guid>
+            <pubDate>Tue, 17 Sep 2019 23:03:27 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[The debate over facial recognition technology]]>
+            </title>
+            <description>
+                <![CDATA[Some MPs have called for UK police and companies to stop using live facial recognition for public surveillance.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49741215</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49741215</guid>
+            <pubDate>Wed, 18 Sep 2019 09:55:05 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Rebellion's Sniper Elite VR game previewed]]>
+            </title>
+            <description>
+                <![CDATA[BBC Click's Marc Cieslak plays a demo of the latest version of the World War II sniping simulator.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49552897</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49552897</guid>
+            <pubDate>Tue, 17 Sep 2019 07:23:36 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[How bacteria could make fashion more eco-friendly]]>
+            </title>
+            <description>
+                <![CDATA[A new process to dye clothes using bacteria could bring environmental benefits.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49552896</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49552896</guid>
+            <pubDate>Mon, 16 Sep 2019 07:48:56 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Colour-changing ink allows objects to swap designs]]>
+            </title>
+            <description>
+                <![CDATA[BBC Click's Nick Kwek looks at some of the week's best technology stories.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49552895</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49552895</guid>
+            <pubDate>Fri, 13 Sep 2019 09:49:57 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[The work experience you can do in your pyjamas]]>
+            </title>
+            <description>
+                <![CDATA[Big companies are offering internships via the internet, but are they a valuable experience?]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/business-49679094</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/business-49679094</guid>
+            <pubDate>Thu, 19 Sep 2019 23:00:29 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[The cheat hackers 'ruining' gaming for others]]>
+            </title>
+            <description>
+                <![CDATA[The use of cheats is a major problem in video games and it’s becoming increasingly lucrative as esports take off. We meet a teenage hacker’s making thousands.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/technology-49740155</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/technology-49740155</guid>
+            <pubDate>Wed, 18 Sep 2019 23:09:44 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Pokemon: 'Ash Ketchum failing for 22 years taught me being a loser is OK']]>
+            </title>
+            <description>
+                <![CDATA[The world's most popular Pokemon trainer, Ash Ketchum, achieves the goal he set for himself in 1997.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/newsbeat-49719746</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/newsbeat-49719746</guid>
+            <pubDate>Mon, 16 Sep 2019 15:26:49 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Tech-savvy stamp collectors energise an old hobby]]>
+            </title>
+            <description>
+                <![CDATA[Technology is helping stamp collectors to share their passion and keep rogue operators at bay.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/business-49632306</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/business-49632306</guid>
+            <pubDate>Mon, 16 Sep 2019 23:05:06 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[Algeria protests: how disinformation spread on social media]]>
+            </title>
+            <description>
+                <![CDATA[How social media became an information battleground for anti-government protesters and Algeria's rulers.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/blogs-trending-49679634</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/blogs-trending-49679634</guid>
+            <pubDate>Mon, 16 Sep 2019 23:08:56 GMT</pubDate>
+        </item>
+        <item>
+            <title>
+                <![CDATA[The former soldier who aims to build a $50bn firm]]>
+            </title>
+            <description>
+                <![CDATA[Shachar Bialick says his special forces background drives his success in business.]]>
+            </description>
+            <link>https://www.bbc.co.uk/news/business-49635660</link>
+            <guid isPermaLink="true">https://www.bbc.co.uk/news/business-49635660</guid>
+            <pubDate>Sun, 15 Sep 2019 23:31:25 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
