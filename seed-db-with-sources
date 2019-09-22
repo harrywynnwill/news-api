@@ -1,0 +1,5 @@
+INSERT INTO sources_repositories(created_at, updated_at, source_url, provider)
+VALUES (now(),now(),"http://feeds.bbci.co.uk/news/uk/rss.xml", "bbc"),
+(now(),now(),"http://feeds.bbci.co.uk/news/technology/rss.xml", "bbc"),
+(now(),now(),"http://feeds.reuters.com/reuters/UKdomesticNews?format=xml", "reuters"),
+(now(),now(),"http://feeds.reuters.com/reuters/technologyNews?format=xml", "reuters");

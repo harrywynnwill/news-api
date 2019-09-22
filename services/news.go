@@ -3,14 +3,12 @@ package services
 import (
 	"esqimo-news-app/models"
 	"esqimo-news-app/repository"
-	"sort"
 )
 
 type NewService interface {
 	LoadNews(articleList []*models.Article) error
-	GetNews() ([]*models.ArticleSummary, error)
-	GetNewsByQuery(category, provider string) ([]*models.ArticleSummary, error)
-	//GetNewsByProvider(provider string) ([]*models.ArticleSummary, error)
+	GetNews(offset, pageSize int) (*models.ArticleList, error)
+	GetNewsByQuery(category, provider string, offset, pageSize int) (*models.ArticleList, error)
 	GetArticle(id uint) (*models.Article, error)
 }
 
@@ -30,24 +28,23 @@ func (n newsServiceImpl) LoadNews(articles []*models.Article) error {
 	return n.articleRepository.Create(articles)
 }
 
-func (n newsServiceImpl) GetNews() ([]*models.ArticleSummary, error) {
-	articles, e := n.articleRepository.Get()
+func (n newsServiceImpl) GetNews(offset, pageSize int) (*models.ArticleList, error) {
+	articles, meta, e := n.articleRepository.Get(offset, pageSize)
 	if e != nil {
 		return nil, e
 	}
-	sort.Sort(models.Articles(articles))
-	return articles, nil
+	paginatedArticles := buildArticleList(articles, meta)
+	return paginatedArticles, nil
 }
 
-func (n newsServiceImpl) GetNewsByQuery(category, provider string) (articles []*models.ArticleSummary, e error) {
-	articles, e = n.articleRepository.GetByQuery(category, provider)
-	return
+func (n newsServiceImpl) GetNewsByQuery(category, provider string, offset, pageSize int) (*models.ArticleList, error) {
+	articles, meta, e := n.articleRepository.GetByQuery(category, provider, offset, pageSize)
+	if e != nil {
+		return nil, e
+	}
+	paginatedArticles := buildArticleList(articles, meta)
+	return paginatedArticles, nil
 }
-
-//func (n newsServiceImpl) GetNewsByProvider(provider string) (articles []*models.ArticleSummary, e error) {
-//	articles, e = n.articleRepository.GetByProvider(provider)
-//	return
-//}
 
 func (n newsServiceImpl) GetArticle(id uint) (*models.Article, error) {
 	article, e := n.articleRepository.GetByID(id)
@@ -55,4 +52,16 @@ func (n newsServiceImpl) GetArticle(id uint) (*models.Article, error) {
 		return nil, e
 	}
 	return article, nil
+}
+
+func buildArticleList(articles []*models.ArticleSummary, meta *models.Meta) *models.ArticleList {
+	paginatedArticles := &models.ArticleList{
+		Articles: articles,
+		Meta: models.Meta{
+			PageSize:     meta.PageSize,
+			Offset:       meta.Offset,
+			TotalRecords: meta.TotalRecords,
+		},
+	}
+	return paginatedArticles
 }

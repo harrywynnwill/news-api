@@ -37,16 +37,25 @@ func GetNews(w http.ResponseWriter, r *http.Request) {
 	log.Println("Get news")
 	category := r.URL.Query().Get("category")
 	provider := r.URL.Query().Get("provider")
-
-	var articleSummaries []*models.ArticleSummary
 	var e error
-
-	articleSummaries, e = services.NewsService.GetNewsByQuery(category, provider)
+	var articleList *models.ArticleList
+	pageSizeInt, e := strconv.Atoi(r.URL.Query().Get("pageSize"))
 	if e != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
-
-	api.SendResponse(models.ArticleList{Articles: articleSummaries}, w, http.StatusOK)
+	offSetInt, e := strconv.Atoi(r.URL.Query().Get("offset"))
+	if e != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+	if category != "" || provider != "" {
+		articleList, e = services.NewsService.GetNewsByQuery(category, provider, offSetInt, pageSizeInt)
+	} else {
+		articleList, e = services.NewsService.GetNews(offSetInt, pageSizeInt)
+	}
+	if e != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+	api.SendResponse(articleList, w, http.StatusOK)
 }
 
 func GetNewsByID(w http.ResponseWriter, r *http.Request) {

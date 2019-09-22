@@ -11,9 +11,8 @@ import (
 
 type ArticleRepository interface {
 	Create(articleList []*models.Article) error
-	Get() ([]*models.ArticleSummary, error)
-	GetByQuery(category, provider string) ([]*models.ArticleSummary, error)
-	//GetByProvider(provider string) ([]*models.ArticleSummary, error)
+	Get(offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error)
+	GetByQuery(category, provider string, offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error)
 	GetByID(id uint) (*models.Article, error)
 }
 
@@ -27,20 +26,30 @@ func (r MysqlArticleRepository) Create(articles []*models.Article) error {
 	var e error
 	database.WithDb(func(db *gorm.DB) {
 		articleRepos := toArticleReposFromArticle(articles)
-		e = db.Create(gormbulk.BulkInsert(db, articleRepos, 3000)).Error
+		e = gormbulk.BulkInsert(db, articleRepos, 3000)
 	})
 	return e
 }
 
-func (r MysqlArticleRepository) Get() ([]*models.ArticleSummary, error) {
+func (r MysqlArticleRepository) Get(offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error) {
 	var e error
 	var articleRepo []*models.ArticleRepo
-	database.WithDb(func(db *gorm.DB) { e = db.Model(models.ArticleRepo{}).Find(&articleRepo).Error })
+	var totalRecords uint
+	database.WithDb(func(db *gorm.DB) {
+		e = db.Debug().Model(models.ArticleRepo{}).
+			Offset(offset).
+			Count(&totalRecords).
+			Limit(pageSize).
+			Order("date desc").
+			Find(&articleRepo).
+			Error
+	})
 	if e != nil {
-		return nil, e
+		return nil, nil, e
 	}
 	articles := toArticlesFromArticleRepo(articleRepo)
-	return articles, nil
+	meta := models.NewMeta(pageSize, offset, totalRecords)
+	return articles, meta, nil
 }
 
 func (r MysqlArticleRepository) GetByID(id uint) (*models.Article, error) {
@@ -58,43 +67,37 @@ func (r MysqlArticleRepository) GetByID(id uint) (*models.Article, error) {
 	return enrichedArticle, nil
 }
 
-func (r MysqlArticleRepository) GetByQuery(category, provider string) ([]*models.ArticleSummary, error) {
+func (r MysqlArticleRepository) GetByQuery(category, provider string, offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error) {
 	var e error
 	var articleRepo []*models.ArticleRepo
+	var totalRecords uint
+	// Need to use a map and not the repo struct as it will use zero values on the empty properties e.g. ID: O
+	dbQuery := map[string]interface{}{}
+	if category != "" {
+		dbQuery["category"] = category
+	}
+	if provider != "" {
+		dbQuery["provider"] = provider
+	}
 
 	database.WithDb(func(db *gorm.DB) {
-
-		// Need to use a map and not the repo struct as it will use zero values on the empty properties e.g. ID: O
-		dbQuery := map[string]interface{}{}
-		if category != "" {
-			dbQuery["category"] = category
-		}
-		if provider != "" {
-			dbQuery["provider"] = provider
-		}
-		e = db.Debug().Where(dbQuery).
+		e = db.Debug().
+			Model(models.ArticleRepo{}).
+			Offset(offset).
+			Count(&totalRecords).
+			Limit(pageSize).
+			Where(dbQuery).
+			Order("date desc").
 			Find(&articleRepo).Error
 	})
-	articles := toArticlesFromArticleRepo(articleRepo)
-	if e != nil {
-		return nil, e
-	}
-	return articles, nil
-}
 
-//func (r MysqlArticleRepository) GetByProvider(provider string) ([]*models.ArticleSummary, error) {
-//	var e error
-//	var articleRepo []*models.ArticleRepo
-//	database.WithDb(func(db *gorm.DB) {
-//		e = db.Model(models.ArticleRepo{}).Where("provider = ?", provider).
-//			Find(&articleRepo).Error
-//	})
-//	articles := toArticlesFromArticleRepo(articleRepo)
-//	if e != nil {
-//		return nil, e
-//	}
-//	return articles, nil
-//}
+	if e != nil {
+		return nil, nil, e
+	}
+	articleSummaries := toArticlesFromArticleRepo(articleRepo)
+	meta := models.NewMeta(pageSize, offset, totalRecords)
+	return articleSummaries, meta, nil
+}
 
 func toArticleReposFromArticle(articles []*models.Article) []interface{} {
 	length := len(articles)

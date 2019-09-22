@@ -23,11 +23,22 @@ func WithDb(fun fn) error {
 	return nil
 }
 
-func RunMigrations() {
+func runMigrations() {
 	WithDb(func(db *gorm.DB) {
 		db.AutoMigrate(&models.ArticleRepo{})
 		db.AutoMigrate(&models.SourcesRepository{})
 	})
+}
+
+func addIndices() {
+	WithDb(func(db *gorm.DB) {
+		db.Model(&models.ArticleRepo{}).AddIndex("idx_date", "date")
+	})
+}
+
+func InitDB() {
+	runMigrations()
+	addIndices()
 }
 
 func getConnectionString() string {

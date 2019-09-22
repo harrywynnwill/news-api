@@ -24,6 +24,7 @@ type Articles []*ArticleSummary
 
 type ArticleList struct {
 	Articles Articles `json:"articles"`
+	Meta
 }
 
 func (a Articles) Len() int {

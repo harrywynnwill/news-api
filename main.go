@@ -16,10 +16,10 @@ const (
 )
 
 func main() {
-	database.RunMigrations()
+	database.InitDB()
 	port := "8000"
 	r := mux.NewRouter()
-	r.HandleFunc("/load-news", controllers.LoadNews).Methods("POST")
+	r.HandleFunc("/news", controllers.LoadNews).Methods("POST") // Would not be part of the public API
 	r.HandleFunc("/news", controllers.GetNews).Methods("GET")
 	r.HandleFunc("/news/{ID:[0-9]+}", controllers.GetNewsByID).Methods("GET")
 
