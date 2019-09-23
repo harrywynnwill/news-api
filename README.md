@@ -64,7 +64,7 @@ is available
 
 - Provide the option to share news articles via email and/or social networks
     
-     &#x2611; *There is a url on the article object and _GET article_ endpoint. 
+     &#x2610; *There is a url on the article object and _GET article_ endpoint. 
      But I'm not sure if that is the requirement here...*
 
 - Display a thumbnail of each article in the list of articles
