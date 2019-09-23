@@ -1,11 +1,11 @@
-## Esquimo Tech Test- News App (API)
+# Esquimo Tech Test- News App (API)
 
-# Prerequisites 
+## Prerequisites 
 Linux - tested on Ubuntu 18 (might work on mac)  
 Go version 1.12 (might run on 1.11 - requires go mod)   
 Docker (I am running v. 19.03.2)  
 
-# Installation
+## Installation
 
 1. Install and start the DB. It is a mysql docker container.
 
@@ -24,7 +24,7 @@ Docker (I am running v. 19.03.2)
     * `chmod +x seed-db.sh`
     * `./seed-db.sh`
 
-# Design
+## Design
 
 Designed in a micro-services (within monolith) pattern, As we scale, we can break the app up and scale it horizontally.
 The services and repos are programmed to interface and implemented as singletons. Down the line we can generate clients for our 
@@ -37,7 +37,7 @@ I would like to have added a cache layer but ran out-of-time. I would have imple
 
 There is also no security on the app.
 
-# Spec
+## Spec
 
 _inline comments in italics_
 
@@ -81,7 +81,7 @@ is available
     API I have opted for the DB solution. The ideal solution might be to store the data and use Elastic Search which is great
     for searching data.*
 
-# The Task
+## The Task
 
 In terms of an API, the client wants it to be able to support the mobile app with all of the above functionality. 
 They have not specified how the API should be constructed, nor have they defined any contracts. We are expected to do
@@ -109,12 +109,13 @@ feeds they want to use. They have told us to use at least one of the following n
 - Bonus: Use a third-party API provider to leverage any functionality
 - Bonus: Provide caching in the API to allow for faster response times
 
-# Endpoints
-  * GET `http://localhost:8000/news?offset=0&pageSize=10&provider=reuters&category=technologyNews`
-    
-    News summaries in a list with pagination
+## Endpoints
+   ### GET /news
+   `http://localhost:8000/news?offset=0&pageSize=10&provider=reuters&category=technologyNews`  
+   
+   News summaries in a list with pagination.
   
-  ### Response Object
+  #### Response Object
   ```
 {
     "articles": [
@@ -164,7 +165,7 @@ feeds they want to use. They have told us to use at least one of the following n
     "totalRecords": 91
 }
 ```
-  ### Request Parameters
+  #### Request Parameters
   
   __pageSize__ number of articles in the response (maximum 300 articles)
   __offSet__ number of articles to offset (maximum 300 articles)
@@ -172,9 +173,11 @@ feeds they want to use. They have told us to use at least one of the following n
   __provider__ query by news provider
   
   
-  * GET http://localhost:8000/news/1`
-   
-   Get the article by ID. Returns a richer article model for viewing per article in HTML.
+  ### GET news/:id
+  
+  Get the article by ID. Returns a richer article model for viewing per article in HTML.
+  
+  #### Response Object
    
 ```
 {
@@ -190,10 +193,10 @@ feeds they want to use. They have told us to use at least one of the following n
 ```
     
     
-  * POST `http://localhost:8000/news`
+  ## POST /news
   
-  This Would not be part of the public API...
-  At the moment it requests the news from the stored sources and loads the articles into the DB.
+  Request the news from 3rd party sources and load the articles into the DB.
+  __This Would not be part of the public API...__
     
 
 
