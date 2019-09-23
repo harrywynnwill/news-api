@@ -30,7 +30,7 @@ func Test_SortArticleList(t *testing.T) {
 
 	sort.Sort(testArticles)
 
-	assert.Equal(3, testArticles[0].ID, "Should be first article with ID 1")
-	assert.Equal(2, testArticles[1].ID, "Should not be second article with ID 2")
-	assert.Equal(1, testArticles[2].ID, "Should not be second article with ID 3")
+	assert.Equal(uint(3), testArticles[0].ID, "Should be first article with ID 1")
+	assert.Equal(uint(2), testArticles[1].ID, "Should not be second article with ID 2")
+	assert.Equal(uint(1), testArticles[2].ID, "Should not be second article with ID 3")
 }

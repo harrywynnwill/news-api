@@ -24,6 +24,10 @@ Docker (I am running v. 19.03.2)
     * `chmod +x seed-db.sh`
     * `./seed-db.sh`
 
+## Tests
+
+Run the tests `go test ./...`
+
 ## Design
 
 Designed in a micro-services (within monolith) pattern, As we scale, we can break the app up and scale it horizontally.
