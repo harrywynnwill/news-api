@@ -20,12 +20,24 @@ type Article struct {
 	Description string `json:"description"`
 }
 
-type Articles []*ArticleSummary
-
 type ArticleList struct {
 	Articles Articles `json:"articles"`
 	Meta
 }
+
+func NewArticleList(articles []*ArticleSummary, meta *Meta) *ArticleList {
+	paginatedArticles := &ArticleList{
+		Articles: articles,
+		Meta: Meta{
+			PageSize:     meta.PageSize,
+			Offset:       meta.Offset,
+			TotalRecords: meta.TotalRecords,
+		},
+	}
+	return paginatedArticles
+}
+
+type Articles []*ArticleSummary
 
 func (a Articles) Len() int {
 	return len(a)

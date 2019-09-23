@@ -8,13 +8,6 @@ import (
 	"net/http"
 )
 
-type Query string
-
-const (
-	CATEGORY Query = "category"
-	PROVIDER Query = "provider"
-)
-
 func main() {
 	database.InitDB()
 	port := "8000"

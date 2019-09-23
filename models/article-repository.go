@@ -5,7 +5,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type ArticleRepo struct {
+type ArticleRepository struct {
 	gorm.Model
 	Title       string
 	Category    string

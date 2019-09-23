@@ -14,9 +14,9 @@ type fn func(db *gorm.DB)
 func WithDb(fun fn) error {
 	settings.GetSettings()
 	configStr := getConnectionString()
-	db, err := gorm.Open("mysql", configStr)
-	if err != nil {
-		log.Println("Error starting DB", err)
+	db, e := gorm.Open("mysql", configStr)
+	if e != nil {
+		log.Println("Error starting DB", e)
 	}
 	fun(db)
 	defer db.Close()
@@ -25,14 +25,14 @@ func WithDb(fun fn) error {
 
 func runMigrations() {
 	WithDb(func(db *gorm.DB) {
-		db.AutoMigrate(&models.ArticleRepo{})
+		db.AutoMigrate(&models.ArticleRepository{})
 		db.AutoMigrate(&models.SourcesRepository{})
 	})
 }
 
 func addIndices() {
 	WithDb(func(db *gorm.DB) {
-		db.Model(&models.ArticleRepo{}).AddIndex("idx_date", "date")
+		db.Model(&models.ArticleRepository{}).AddIndex("idx_date", "date")
 	})
 }
 

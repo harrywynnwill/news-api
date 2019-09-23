@@ -1,10 +1,5 @@
 package models
 
-const (
-	pageDefault     int = 1
-	pageSizeDefault int = 20
-)
-
 type Meta struct {
 	PageSize     int  `json:"pageSize"`
 	Offset       int  `json:"offSet"`
