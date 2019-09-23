@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68f88064-b5de-457e-b286-61d93dcf03a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/api/validations.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/validations_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/response-helpers.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/response-helpers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constants.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/news.go" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/news.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/database/db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/SoucesRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/souces-repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/article.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/article.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/articleDB.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/article-repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/article-repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/article-repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/repository/sources-repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/repository/sources-repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/news.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/news.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/provider.go" beforeDir="false" afterPath="$PROJECT_DIR$/services/provider.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -179,6 +163,14 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Design and clean up of the README" />
+    <MESSAGE value="add validations" />
+    <MESSAGE value="Repos singletons" />
+    <MESSAGE value="Clean up" />
+    <MESSAGE value="README detail" />
+    <option name="LAST_COMMIT_MESSAGE" value="README detail" />
+  </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>direct</proxy>
@@ -198,7 +190,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/repository/sources-repository.go</url>
-          <line>23</line>
+          <line>21</line>
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
