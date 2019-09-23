@@ -2,7 +2,7 @@ package services
 
 import (
 	"esqimo-news-app/models"
-	"esqimo-news-app/repository"
+	"esqimo-news-app/repositories"
 )
 
 type NewService interface {
@@ -13,16 +13,16 @@ type NewService interface {
 }
 
 type newsServiceImpl struct {
-	articleRepository repository.ArticleRepository
+	articleRepository repositories.ArticleRepository
 }
 
-func newNewsService(repo repository.ArticleRepository) newsServiceImpl {
+func newNewsService(repo repositories.ArticleRepository) newsServiceImpl {
 	return newsServiceImpl{
 		articleRepository: repo,
 	}
 }
 
-var NewsService = newNewsService(repository.MysqlArticleRepository) // Singleton
+var NewsService = newNewsService(repositories.MysqlArticleRepository) // Singleton
 
 func (n newsServiceImpl) LoadNews(articles []*models.Article) error {
 	return n.articleRepository.Create(articles)

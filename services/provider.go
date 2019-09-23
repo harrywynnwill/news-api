@@ -2,7 +2,7 @@ package services
 
 import (
 	"esqimo-news-app/models"
-	"esqimo-news-app/repository"
+	"esqimo-news-app/repositories"
 	"esqimo-news-app/services/parser"
 	"io/ioutil"
 	"net/http"
@@ -14,11 +14,11 @@ type ProviderService interface {
 
 type providerServiceImpl struct {
 	provider          models.Provider
-	sourcesRepository repository.SourcesRepository
+	sourcesRepository repositories.SourcesRepository
 	parseService      parser.ParseService // Maybe use reflection here to get the type - remove the provider from the constructor?
 }
 
-func newProviderService(sourcesRepository repository.SourcesRepository, parseService parser.ParseService,
+func newProviderService(sourcesRepository repositories.SourcesRepository, parseService parser.ParseService,
 	provider models.Provider) providerServiceImpl {
 	return providerServiceImpl{
 		provider:          provider,
@@ -27,8 +27,8 @@ func newProviderService(sourcesRepository repository.SourcesRepository, parseSer
 	}
 }
 
-var ReutersProviderService = newProviderService(repository.MySqlSourcesRepository, parser.ReutersParseService, models.REUTERS)
-var BBCProviderService = newProviderService(repository.MySqlSourcesRepository, parser.BBCParseService, models.BBC)
+var ReutersProviderService = newProviderService(repositories.MySqlSourcesRepository, parser.ReutersParseService, models.REUTERS)
+var BBCProviderService = newProviderService(repositories.MySqlSourcesRepository, parser.BBCParseService, models.BBC)
 
 func (p providerServiceImpl) GetNews() ([]*models.Article, error) {
 	sources, e := p.sourcesRepository.GetBySource(p.provider)
