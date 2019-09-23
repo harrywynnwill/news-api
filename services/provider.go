@@ -15,7 +15,7 @@ type ProviderService interface {
 type providerServiceImpl struct {
 	provider          models.Provider
 	sourcesRepository repository.SourcesRepository
-	parseService      parser.ParseService // Maybe use reflection here to get the type - remover the provider from the constructor?
+	parseService      parser.ParseService // Maybe use reflection here to get the type - remove the provider from the constructor?
 }
 
 func newProviderService(sourcesRepository repository.SourcesRepository, parseService parser.ParseService,
@@ -27,8 +27,8 @@ func newProviderService(sourcesRepository repository.SourcesRepository, parseSer
 	}
 }
 
-var ReutersProviderService = newProviderService(repository.NewMysqlSourcesRepository(), parser.ReutersParseService, models.REUTERS)
-var BBCProviderService = newProviderService(repository.NewMysqlSourcesRepository(), parser.BBCParseService, models.BBC)
+var ReutersProviderService = newProviderService(repository.MySqlSourcesRepository, parser.ReutersParseService, models.REUTERS)
+var BBCProviderService = newProviderService(repository.MySqlSourcesRepository, parser.BBCParseService, models.BBC)
 
 func (p providerServiceImpl) GetNews() ([]*models.Article, error) {
 	sources, e := p.sourcesRepository.GetBySource(p.provider)
@@ -52,10 +52,10 @@ func (p providerServiceImpl) GetNews() ([]*models.Article, error) {
 }
 
 func requestNews(url string) ([]byte, error) {
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, err
+	resp, e := http.Get(url)
+	if e != nil {
+		return nil, e
 	}
-	body, err := ioutil.ReadAll(resp.Body)
-	return body, err
+	body, e := ioutil.ReadAll(resp.Body)
+	return body, e
 }

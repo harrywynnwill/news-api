@@ -16,27 +16,31 @@ type ArticleRepository interface {
 	GetByID(id uint) (*models.Article, error)
 }
 
-type MysqlArticleRepository struct{}
+type mysqlArticleRepository struct{}
 
-func NewMysqlArticleRepository() *MysqlArticleRepository {
-	return &MysqlArticleRepository{}
+func newMysqlArticleRepository() *mysqlArticleRepository {
+	return &mysqlArticleRepository{}
 }
 
-func (r MysqlArticleRepository) Create(articles []*models.Article) error {
+var MysqlArticleRepository = newMysqlArticleRepository()
+
+func (r mysqlArticleRepository) Create(articles []*models.Article) error {
 	var e error
 	database.WithDb(func(db *gorm.DB) {
 		articleRepos := toArticleReposFromArticle(articles)
-		e = gormbulk.BulkInsert(db, articleRepos, 3000)
+		if articleRepos != nil {
+			e = gormbulk.BulkInsert(db, articleRepos, 3000)
+		}
 	})
 	return e
 }
 
-func (r MysqlArticleRepository) Get(offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error) {
+func (r mysqlArticleRepository) Get(offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error) {
 	var e error
-	var articleRepo []*models.ArticleRepo
+	var articleRepo []*models.ArticleRepository
 	var totalRecords uint
 	database.WithDb(func(db *gorm.DB) {
-		e = db.Debug().Model(models.ArticleRepo{}).
+		e = db.Model(models.ArticleRepository{}).
 			Offset(offset).
 			Count(&totalRecords).
 			Limit(pageSize).
@@ -52,11 +56,11 @@ func (r MysqlArticleRepository) Get(offset, pageSize int) ([]*models.ArticleSumm
 	return articles, meta, nil
 }
 
-func (r MysqlArticleRepository) GetByID(id uint) (*models.Article, error) {
+func (r mysqlArticleRepository) GetByID(id uint) (*models.Article, error) {
 	var e error
-	var articleRepo models.ArticleRepo
+	var articleRepo models.ArticleRepository
 	database.WithDb(func(db *gorm.DB) {
-		e = db.Model(models.ArticleRepo{}).First(&articleRepo, id).Error
+		e = db.Model(models.ArticleRepository{}).First(&articleRepo, id).Error
 	})
 	if e != nil {
 		return nil, e
@@ -67,9 +71,9 @@ func (r MysqlArticleRepository) GetByID(id uint) (*models.Article, error) {
 	return enrichedArticle, nil
 }
 
-func (r MysqlArticleRepository) GetByQuery(category, provider string, offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error) {
+func (r mysqlArticleRepository) GetByQuery(category, provider string, offset, pageSize int) ([]*models.ArticleSummary, *models.Meta, error) {
 	var e error
-	var articleRepo []*models.ArticleRepo
+	var articleRepo []*models.ArticleRepository
 	var totalRecords uint
 	// Need to use a map and not the repo struct as it will use zero values on the empty properties e.g. ID: O
 	dbQuery := map[string]interface{}{}
@@ -81,8 +85,7 @@ func (r MysqlArticleRepository) GetByQuery(category, provider string, offset, pa
 	}
 
 	database.WithDb(func(db *gorm.DB) {
-		e = db.Debug().
-			Model(models.ArticleRepo{}).
+		e = db.Model(models.ArticleRepository{}).
 			Offset(offset).
 			Count(&totalRecords).
 			Limit(pageSize).
@@ -101,10 +104,15 @@ func (r MysqlArticleRepository) GetByQuery(category, provider string, offset, pa
 
 func toArticleReposFromArticle(articles []*models.Article) []interface{} {
 	length := len(articles)
+	if length == 0 {
+		return nil
+	}
 	var articleRepos = make([]interface{}, length)
 	for i, a := range articles {
-		var articleRepo = models.ArticleRepo{}
-		articleRepo.Date = a.Date.Unix()
+		var articleRepo = models.ArticleRepository{}
+		if !a.Date.IsZero() {
+			articleRepo.Date = a.Date.Unix()
+		}
 		articleRepo.Category = a.Category
 		articleRepo.Url = a.Url
 		articleRepo.UrlToImage = sql.NullString{String: a.UrlToImage, Valid: a.UrlToImage != ""}
@@ -116,21 +124,17 @@ func toArticleReposFromArticle(articles []*models.Article) []interface{} {
 	return articleRepos
 }
 
-func toEnrichedArticlesFromArticleRepo(articleRepo *models.ArticleRepo) (*models.Article, error) {
-	var article = &models.Article{}
-	toArticleFromArticleRepo(article, articleRepo)
-	return article, nil
-}
-
-func toArticlesFromArticleRepo(ar []*models.ArticleRepo) []*models.ArticleSummary {
+func toArticlesFromArticleRepo(ar []*models.ArticleRepository) []*models.ArticleSummary {
 	var articles = make([]*models.ArticleSummary, len(ar))
 	for i, a := range ar {
-		articles[i] = toArticleSummaryFromArticleRepo(a)
+		if articleRepo := toArticleSummaryFromArticleRepo(a); articleRepo != nil {
+			articles[i] = articleRepo
+		}
 	}
 	return articles
 }
 
-func toArticleSummaryFromArticleRepo(ar *models.ArticleRepo) *models.ArticleSummary {
+func toArticleSummaryFromArticleRepo(ar *models.ArticleRepository) *models.ArticleSummary {
 	article := &models.ArticleSummary{}
 	if ar.ID != 0 {
 		article.ID = ar.ID
@@ -155,8 +159,19 @@ func toArticleSummaryFromArticleRepo(ar *models.ArticleRepo) *models.ArticleSumm
 	return article
 }
 
-func toArticleFromArticleRepo(article *models.Article, ar *models.ArticleRepo) {
-	article.ArticleSummary = *toArticleSummaryFromArticleRepo(ar)
-	article.Url = ar.Url
-	article.Description = ar.Description
+func toArticleFromArticleRepo(article *models.Article, ar *models.ArticleRepository) {
+	if article != nil {
+		if ar != nil {
+			if articlesSummary := toArticleSummaryFromArticleRepo(ar); articlesSummary != nil {
+				article.ArticleSummary = *articlesSummary
+				if ar.Url != "" {
+					article.Url = ar.Url
+				}
+				if ar.Description != "" {
+					article.Description = ar.Description
+				}
+			}
+		}
+
+	}
 }

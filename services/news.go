@@ -22,7 +22,7 @@ func newNewsService(repo repository.ArticleRepository) newsServiceImpl {
 	}
 }
 
-var NewsService = newNewsService(repository.NewMysqlArticleRepository()) // Singleton
+var NewsService = newNewsService(repository.MysqlArticleRepository) // Singleton
 
 func (n newsServiceImpl) LoadNews(articles []*models.Article) error {
 	return n.articleRepository.Create(articles)
@@ -33,7 +33,7 @@ func (n newsServiceImpl) GetNews(offset, pageSize int) (*models.ArticleList, err
 	if e != nil {
 		return nil, e
 	}
-	paginatedArticles := buildArticleList(articles, meta)
+	paginatedArticles := models.NewArticleList(articles, meta)
 	return paginatedArticles, nil
 }
 
@@ -42,7 +42,7 @@ func (n newsServiceImpl) GetNewsByQuery(category, provider string, offset, pageS
 	if e != nil {
 		return nil, e
 	}
-	paginatedArticles := buildArticleList(articles, meta)
+	paginatedArticles := models.NewArticleList(articles, meta)
 	return paginatedArticles, nil
 }
 
@@ -52,16 +52,4 @@ func (n newsServiceImpl) GetArticle(id uint) (*models.Article, error) {
 		return nil, e
 	}
 	return article, nil
-}
-
-func buildArticleList(articles []*models.ArticleSummary, meta *models.Meta) *models.ArticleList {
-	paginatedArticles := &models.ArticleList{
-		Articles: articles,
-		Meta: models.Meta{
-			PageSize:     meta.PageSize,
-			Offset:       meta.Offset,
-			TotalRecords: meta.TotalRecords,
-		},
-	}
-	return paginatedArticles
 }

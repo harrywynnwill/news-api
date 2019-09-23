@@ -10,15 +10,17 @@ type SourcesRepository interface {
 	GetBySource(provider models.Provider) ([]*models.SourcesRepository, error)
 }
 
-type MysqlSourcesRepository struct{}
+type mysqlSourcesRepository struct{}
 
-func NewMysqlSourcesRepository() *MysqlSourcesRepository {
-	return &MysqlSourcesRepository{}
+func newMysqlSourcesRepository() *mysqlSourcesRepository {
+	return &mysqlSourcesRepository{}
 }
 
-func (r MysqlSourcesRepository) GetBySource(provider models.Provider) ([]*models.SourcesRepository, error) {
+var MySqlSourcesRepository = newMysqlSourcesRepository()
+
+func (r mysqlSourcesRepository) GetBySource(provider models.Provider) ([]*models.SourcesRepository, error) {
 	var e error
 	var sources []*models.SourcesRepository
-	database.WithDb(func(db *gorm.DB) {e = db.Where(&models.SourcesRepository{Provider: provider}).Find(&sources).Error})
+	database.WithDb(func(db *gorm.DB) { e = db.Where(&models.SourcesRepository{Provider: provider}).Find(&sources).Error })
 	return sources, e
 }
