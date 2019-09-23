@@ -1,12 +1,53 @@
 ## Esquimo Tech Test- News App (API)
 
+# Prerequisites 
+Linux - tested on Ubuntu 18 (might work on mac)  
+Go version 1.12 (might run on 1.11 - requires go mod)   
+Docker (I am running v. 19.03.2)  
+
+# Installation
+
+1. Install and start the DB. It is a mysql docker container.
+
+    * `chmod +x start.db`
+    * `./start.db`
+
+    ... Wait until its up
+
+2. Compile and run the app.
+
+    * `go build main.go` - compile
+    * `./main` - run the app! (will run the migrations on start up)
+    
+3. Seed the DB with news sources.
+
+    * `chmod +x seed-db.sh`
+    * `./seed-db.sh`
+
+# Design
+
+Designed in a micro-services (within monolith) pattern, As we scale, we can break the app up and scale it horizontally.
+The services and repos are programmed to interface and implemented as singletons. Down the line we can generate clients for our 
+extracted services and easily break the app up.
+
+I focused on delivering value. I have taken a pragmatic approach to testing in order to deliver the API. We could do 
+with some integration tests and probably more unit tests. Any logic that is not simple object mapping I have unit tested.
+
+I would like to have added a cache layer but ran out-of-time. I would have implemented the cache on the GET news/:id route.
+
+There is also no security on the app.
+
+# Spec
+
+_inline comments in italics_
+
 Our client wants to be able to read news articles from a provided feed that can be shown in a mobile app. They already 
 have another team working on the app itself, but need help with the backend API.
 
-For context, the mobile app has the following functionality:
+For context, the mobile to achieveapp has the following functionality:
 - Load news articles from a public news feed
 
-     &#x2611; *Endpoint added to load news articles from both RSS feeds with separate parsers to handle the difference in XML*
+     &#x2611; *Endpoint added to load news articles from both RSS feeds, separate parsers to handle the difference in XML*
      
 - Display a scrollable list of news articles
 
@@ -15,15 +56,16 @@ For context, the mobile app has the following functionality:
 - Provide the option to filter news articles by category (such as UK News and Technology news), where this information 
 is available
     
-    &#x2611; *Get articles endpoint has query params for __category__ and __provider__.
+    &#x2611; *Get _/articles_ endpoint has query params for __category__ and __provider__.
 
 - Show a single news article on screen, using an HTML display
 
-    &#x2611; *Get article endpoint with richer article object that includes the content of the article
+    &#x2611; *Get _/article_ by ID endpoint with richer article object that includes the content of the article*
 
 - Provide the option to share news articles via email and/or social networks
     
-    &#x2612; *There is a url on the article. But i'm not sure if that is the requirement here...*
+     &#x2611; *There is a url on the article object and _GET article_ endpoint. 
+     But I'm not sure if that is the requirement here...*
 
 - Display a thumbnail of each article in the list of articles
     
@@ -31,20 +73,22 @@ is available
     
 - Present news articles in the order in which they are published
 
-    &#x2611; *Sorting by published date done at the DB level*
+    &#x2611; *Sorting by published date done at the DB level. I have added an index to the published date* 
 
 - Allow the selection of different sources of news by category and provider
-
-    &#x2611; *Get articles endpoint has query params for __category__ and __provider__.
-
+    
+    &#x2611; *Get articles endpoint has query params for __category__ and __provider__. In the interests of delivering the 
+    API I have opted for the DB solution. The ideal solution might be to store the data and use Elastic Search which is great
+    for searching data.*
 
 # The Task
 
 In terms of an API, the client wants it to be able to support the mobile app with all of the above functionality. 
 They have not specified how the API should be constructed, nor have they defined any contracts. We are expected to do
-this and document it accordingly. Because we don't know where the client is actually going to source their news from, 
-we need to be flexible about what feeds they want to use. They have told us to use at least one of the following news feeds 
-to read this data from, but they want to be able to change this at any time:
+this and document it accordingly. 
+Because we don't know where the client is actually going to source their news from, we need to be flexible about what 
+feeds they want to use. They have told us to use at least one of the following news feeds to read this data from, but
+ they want to be able to change this at any time:
 
 - http://feeds.bbci.co.uk/news/uk/rss.xml (BBC News UK)
 - http://feeds.bbci.co.uk/news/technology/rss.xml (BBC News Technology)
@@ -64,51 +108,6 @@ to read this data from, but they want to be able to change this at any time:
 - Bonus: Adopt a microservices architecture to provide resilience and scalability
 - Bonus: Use a third-party API provider to leverage any functionality
 - Bonus: Provide caching in the API to allow for faster response times
-
-# Pro Tips for Success
-1.Build the API in an environment you are comfortable with, such as
-Visual Studio, PyCharm, IntelliJ, vim, emacs or what else suits you.
-2.Language doesn't matter, just as long as it is readable, clear and
-concise.
-3.Feel free to use 3rd-party frameworks or libraries as you see fit. Of
-course we will ask why you made a choice to use/not use it.
-4.Make sure it builds and runs in a clean environment. If you can
-provide a working example, all the better.
-5.Create a clean public repo at github, push your code there and give us
-the link, we’ll checkout from there.
-6.As this task is purely for APIs, you don’t need to build a client.
-Documentation about how to use it helps, though.
-7.Do not spend more than a few hours on the project. If you are unable
-to complete a feature, don't worry, but at least show your working.
-8.Be ready to explain your code! We are looking for robust, clean code.
-If you need to hack anything in, be sure you're ready to explain why.
-9.Don't forget to check for null references!
-Good luck!
-
-# Prerequisites 
-Linux - tested on Ubuntu 18 (might work on mac)
-Go version 1.12 (might run on 1.11!) 
-Docker
-
-# Installation
-
-1. Install and start the DB. It is a mysql docker container.
-
-    * `chmod +x start.db`
-    * `./start.db`
-
-    ... Wait until its up
-
-2. Seed the DB with news sources.
-
-    * `chmod +x seed-db.sh`
-    * `./seed-db.sh`
-
-3. Compile and run the app.
-
-    * `go build main.go` - compile
-    * `./main` - run the app!
-
 
 # Endpoints
   * GET `http://localhost:8000/news?offset=0&pageSize=10&provider=reuters&category=technologyNews`
@@ -167,9 +166,9 @@ Docker
 ```
   ### Request Parameters
   
-  __pageSize__ number of articles in the response
-  __offSet__ number of articles to offset
-  __category__ query by category
+  __pageSize__ number of articles in the response (maximum 300 articles)
+  __offSet__ number of articles to offset (maximum 300 articles)
+  __category__ query by category 
   __provider__ query by news provider
   
   
@@ -194,7 +193,6 @@ Docker
   * POST `http://localhost:8000/news`
   
   This Would not be part of the public API...
- 
   At the moment it requests the news from the stored sources and loads the articles into the DB.
     
 
